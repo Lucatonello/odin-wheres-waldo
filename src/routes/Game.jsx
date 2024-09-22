@@ -1,5 +1,6 @@
 import '../Game.css';
 import { useState } from 'react';
+import Navbar from './Navbar';
 
 function Game() {
     const [clientX, setClientX] = useState("");
@@ -24,6 +25,7 @@ function Game() {
         } else {
             setShowDD(false);
         }
+        setResult(null);
         console.log(event.clientX, event.clientY);
       }
 
@@ -54,23 +56,25 @@ function Game() {
     };
 
     return (
-        <div onClick={mousePos}>
-            {result && (
-                <h1>{result.message}</h1>
-            )}
-            <div className='imgContainer'>
-                <img src="https://images2.alphacoders.com/925/925901.jpg" alt="waldo" />
-            </div>
-            {showDD && (
-                <div style={dropdownStyle}>
-                    <button onClick={() => handleGuess('waldo')}>Waldo</button>
-                    <button >Wizzard</button>
-                
+        <>
+            <Navbar result={result}/>
+            <div onClick={mousePos}>
+                <div className='imgContainer'>
+                    <img src="https://images2.alphacoders.com/925/925901.jpg" alt="waldo" />
                 </div>
-            
-            )}
-            
-        </div>
+                {showDD && (
+                    <div style={dropdownStyle}>
+                        <button onClick={() => handleGuess('waldo')}>Waldo</button>
+                        <button onClick={() => handleGuess('wizard')}>Wizard</button>
+                    
+                    </div>
+                
+                )}
+                {result && (
+                    <h1>{result.message}</h1>
+                )}
+            </div>
+        </>
     );
     
 }

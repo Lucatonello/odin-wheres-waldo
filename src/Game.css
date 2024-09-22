@@ -1,6 +1,6 @@
 .imgContainer {
     padding: 0px; /* make responsive later */
-    margin: 100px;
+    /* margin: 100px; */
 }
 .imgContainer > img {
     max-width: 100%;

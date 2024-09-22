@@ -1,0 +1,57 @@
+/* Navbar container */
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #f0f0f0;
+    border-bottom: 2px solid #ccc;
+  }
+  
+  /* Left side with images and names */
+  .navbar-left {
+    display: flex;
+    align-items: center;
+  }
+  
+  .character {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 20px;
+  }
+  
+  .character-image {
+    width: 50px; /* Set consistent width */
+    height: 50px; /* Set consistent height */
+    object-fit: contain; /* Maintain aspect ratio */
+  }
+  
+  .character-name {
+    font-size: 14px;
+    font-weight: bold;
+    text-align: center;
+    margin-top: 5px;
+    line-height: 1.2; /* Control line height for vertical alignment */
+  }
+  
+  /* Right side with return button */
+  .navbar-right {
+    margin-right: 20px;
+  }
+  
+  .return-button {
+    background-color: #ff5733;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .return-button:hover {
+    background-color: #c43e22;
+  }
+  
