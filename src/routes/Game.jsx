@@ -64,19 +64,7 @@ function Game() {
             const fetchResult = await response.json();
 
             if (fetchResult.success == true) {
-                setFoundCharacters((prev) => {
-                    const updatedCharacters = [...prev, character];
-                    if (updatedCharacters.length === 4 && !isOver) {
-                        setIsOver(true);
-                        clearInterval(intervalId); 
-                        setTimeout(() => {
-                            const playerName = prompt(`You found both characters! Time: ${timePassed} seconds. What's your name?`);
-                            addTimeToDB(playerName, timePassed);
-                            navigate('/high-scores');
-                        }, 1000);
-                    }
-                    return updatedCharacters;
-                });
+                setFoundCharacters((prev) => [...prev, character]);
             }
 
             setShowDD(false);  
@@ -96,6 +84,16 @@ function Game() {
         return () => clearInterval(id);
     }, [])
 
+    useEffect(() => {
+        if (foundCharacters.length === 4 && !isOver) { // Check if all characters are found and game isn't over
+            setIsOver(true); // Set isOver to true
+            clearInterval(intervalId); // Clear the interval
+            const playerName = prompt(`You found both characters! Time: ${timePassed} seconds. What's your name?`); // Prompt the user
+            addTimeToDB(playerName, timePassed); // Add time to database
+            navigate('/high-scores'); // Navigate to high scores page
+        }
+    }, [foundCharacters, isOver, timePassed, intervalId, navigate]);
+
     const dropdownStyle = {
         position: 'absolute',
         left: clientX,
@@ -108,6 +106,8 @@ function Game() {
         <>
             <Navbar foundCharacters={foundCharacters}/>
             <div onClick={mousePos}>
+                <h2 id='timePassed'>Time: {timePassed}</h2>
+
                 <div className='imgContainer'>
                     <img src={map1} alt="wenda" />
                 </div>
@@ -133,7 +133,6 @@ function Game() {
                     <h1>{result.message}</h1>
                 )}
             </div>
-            <h1>Time: {timePassed}</h1>
         </>
     );
     
