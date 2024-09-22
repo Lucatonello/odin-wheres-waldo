@@ -1,0 +1,106 @@
+.maps-container {
+    text-align: center;
+    padding: 20px;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin: 0px 0px 10px 0px;
+}
+.high-scores-button {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    margin-top: 27px;
+    margin-left: 0px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+.high-scores-button:hover {
+    background-color: #218838;
+}
+hr {
+    width: 80%;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+
+h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.map-cards {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.map-card {
+    position: relative;
+    width: 400px;
+    height: 250px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 0.2s;
+    background-color: #f4f4f9;
+    padding-top: 10px;
+}
+
+.map-title {
+    font-size: 1.5rem;
+    padding: 8px 0px 8px 0px;
+    margin: 0px;
+    color: #0056b3;
+}
+
+.map-image {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+}
+
+.characters {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    display: flex;
+    gap: 5px;
+}
+
+.character-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    padding: 5px;
+}
+
+.play-button {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    background-color: #007BFF;
+    color: white;
+    padding: 10px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.play-button:hover {
+    background-color: #0056b3;
+}
+
+.map-card:hover {
+    transform: translateY(-5px);
+}

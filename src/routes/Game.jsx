@@ -1,5 +1,8 @@
 import '../Game.css';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
+import map1 from '../Images/map1.jpg';
 import Navbar from './Navbar';
 
 function Game() {
@@ -11,6 +14,8 @@ function Game() {
     const [foundCharacters, setFoundCharacters] = useState([]);
     const [isOver, setIsOver] = useState(false);
     const [intervalId, setIntervalId] = useState(null);
+    const navigate = useNavigate();
+
 
     function mousePos(event) {
           setClientX(event.clientX);
@@ -64,8 +69,11 @@ function Game() {
                     if (updatedCharacters.length === 4 && !isOver) {
                         setIsOver(true);
                         clearInterval(intervalId); 
-                        const playerName = prompt(`You found both characters! Time: ${timePassed} seconds. What's your name?`);
-                        addTimeToDB(playerName, timePassed);
+                        setTimeout(() => {
+                            const playerName = prompt(`You found both characters! Time: ${timePassed} seconds. What's your name?`);
+                            addTimeToDB(playerName, timePassed);
+                            navigate('/high-scores');
+                        }, 1000);
                     }
                     return updatedCharacters;
                 });
@@ -101,7 +109,7 @@ function Game() {
             <Navbar foundCharacters={foundCharacters}/>
             <div onClick={mousePos}>
                 <div className='imgContainer'>
-                    <img src="https://images2.alphacoders.com/925/925901.jpg" alt="wenda" />
+                    <img src={map1} alt="wenda" />
                 </div>
                 {showDD && (
                     <div style={dropdownStyle}>
