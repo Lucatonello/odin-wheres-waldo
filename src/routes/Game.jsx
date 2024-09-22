@@ -1,5 +1,5 @@
 import '../Game.css';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Navbar from './Navbar';
 
 function Game() {
@@ -7,6 +7,10 @@ function Game() {
     const [clientY, setClientY] = useState("");
     const [showDD, setShowDD] = useState(false);
     const [result, setResult] = useState("");
+    const [timePassed, setTimePassed] = useState(null);
+    const [foundCharacters, setFoundCharacters] = useState([]);
+    const [isOver, setIsOver] = useState(false);
+    const [intervalId, setIntervalId] = useState(null);
 
     function mousePos(event) {
           setClientX(event.clientX);
@@ -27,7 +31,21 @@ function Game() {
         }
         setResult(null);
         console.log(event.clientX, event.clientY);
-      }
+    }
+
+    const addTimeToDB = async (playerName, time) => {
+        try {
+            await fetch('http://localhost:3000/addtime', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ playerName, time }),
+            });
+        } catch (err) {
+            console.error(err);
+        }
+    };
 
     const handleGuess = async (character) => {
         try {
@@ -39,6 +57,20 @@ function Game() {
                 body: JSON.stringify({ clientX, clientY })
             });
             const fetchResult = await response.json();
+
+            if (fetchResult.success == true) {
+                setFoundCharacters((prev) => {
+                    const updatedCharacters = [...prev, character];
+                    if (updatedCharacters.length === 4 && !isOver) {
+                        setIsOver(true);
+                        clearInterval(intervalId); 
+                        const playerName = prompt(`You found both characters! Time: ${timePassed} seconds. What's your name?`);
+                        addTimeToDB(playerName, timePassed);
+                    }
+                    return updatedCharacters;
+                });
+            }
+
             setShowDD(false);  
             setResult(fetchResult) 
             console.log(fetchResult)
@@ -46,6 +78,15 @@ function Game() {
             console.error(err);
         }
     };
+
+    useEffect(() => {
+        const id = setInterval(() => {
+            setTimePassed((prevTime) => prevTime + 1);
+        }, 1000);
+        setIntervalId(id);
+        
+        return () => clearInterval(id);
+    }, [])
 
     const dropdownStyle = {
         position: 'absolute',
@@ -57,15 +98,25 @@ function Game() {
 
     return (
         <>
-            <Navbar result={result}/>
+            <Navbar foundCharacters={foundCharacters}/>
             <div onClick={mousePos}>
                 <div className='imgContainer'>
-                    <img src="https://images2.alphacoders.com/925/925901.jpg" alt="waldo" />
+                    <img src="https://images2.alphacoders.com/925/925901.jpg" alt="wenda" />
                 </div>
                 {showDD && (
                     <div style={dropdownStyle}>
-                        <button onClick={() => handleGuess('waldo')}>Waldo</button>
-                        <button onClick={() => handleGuess('wizard')}>Wizard</button>
+                        {!foundCharacters.includes('waldo') && (
+                            <button onClick={() => handleGuess('waldo')}>Waldo</button>
+                        )}
+                        {!foundCharacters.includes('wenda') && (
+                            <button onClick={() => handleGuess('wenda')}>Wenda</button>
+                        )}
+                        {!foundCharacters.includes('wizard') && (
+                            <button onClick={() => handleGuess('wizard')}>Wizard</button>
+                        )}
+                        {!foundCharacters.includes('odlaw') && (
+                            <button onClick={() => handleGuess('odlaw')}>Odlaw</button>
+                        )}
                     
                     </div>
                 
@@ -74,6 +125,7 @@ function Game() {
                     <h1>{result.message}</h1>
                 )}
             </div>
+            <h1>Time: {timePassed}</h1>
         </>
     );
     

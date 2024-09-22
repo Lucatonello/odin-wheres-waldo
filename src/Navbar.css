@@ -1,14 +1,12 @@
-/* Navbar container */
 .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #f0f0f0;
+    background-color: #ffff;
     border-bottom: 2px solid #ccc;
   }
   
-  /* Left side with images and names */
   .navbar-left {
     display: flex;
     align-items: center;
@@ -22,9 +20,9 @@
   }
   
   .character-image {
-    width: 50px; /* Set consistent width */
-    height: 50px; /* Set consistent height */
-    object-fit: contain; /* Maintain aspect ratio */
+    width: 50px; 
+    height: 50px; 
+    object-fit: contain; 
   }
   
   .character-name {
@@ -32,10 +30,9 @@
     font-weight: bold;
     text-align: center;
     margin-top: 5px;
-    line-height: 1.2; /* Control line height for vertical alignment */
+    line-height: 1.2; 
   }
   
-  /* Right side with return button */
   .navbar-right {
     margin-right: 20px;
   }
