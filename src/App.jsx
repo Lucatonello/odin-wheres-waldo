@@ -6,8 +6,8 @@ import Home from './routes/Home';
 function App() {
   return (
    <Routes>
-    <Route path='/home' element={<Home />} />
-    <Route path="/" element={<Game />} />
+    <Route path='/' element={<Home />} />
+    <Route path="/play" element={<Game />} />
     <Route path="/high-scores" element={<Highscores />} />
    </Routes>
   );

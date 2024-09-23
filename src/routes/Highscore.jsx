@@ -35,7 +35,7 @@ function Highscores() {
                     ))}
                 </tbody>
             </table>
-            <Link to="/home">Home</Link>
+            <Link to="/">Home</Link>
         </div>
     )
 

@@ -1,6 +1,7 @@
 .imgContainer {
     padding: 0px; /* make responsive later */
-    /* margin: 100px; */
+    min-width: 1500px;
+    min-height: 950px;
 }
 .imgContainer > img {
     max-width: 100%;
@@ -10,4 +11,25 @@
     position: absolute;
     margin: 0px;
     padding: 5px;
+}
+.dropdownStyle  {
+    background-color: white;
+    border: 1px solid #ccc; 
+    border-radius: 5px; 
+    padding: 7px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+.dropdownStyle button {
+    background-color: #ff0000a5;
+    color: white; 
+    border: none; 
+    border-radius: 5px; 
+    padding: 8px 12px; 
+    margin: 5px 0;
+    cursor: pointer; 
+    transition: background-color 0.3s; 
+}
+.dropdownStyle button:hover {
+    background-color: #730909c2; 
 }

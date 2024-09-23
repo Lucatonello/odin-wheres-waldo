@@ -1,6 +1,5 @@
 import '../Game.css';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import map1 from '../Images/map1.jpg';
 import Navbar from './Navbar';
@@ -8,7 +7,10 @@ import Navbar from './Navbar';
 function Game() {
     const [clientX, setClientX] = useState("");
     const [clientY, setClientY] = useState("");
+    const [dropdownX, setDropdownX] = useState("");
+    const [dropdownY, setDropdownY] = useState("");
     const [showDD, setShowDD] = useState(false);
+    // eslint-disable-next-line no-unused-vars
     const [result, setResult] = useState("");
     const [timePassed, setTimePassed] = useState(null);
     const [foundCharacters, setFoundCharacters] = useState([]);
@@ -18,13 +20,19 @@ function Game() {
 
 
     function mousePos(event) {
-          setClientX(event.clientX);
-          setClientY(event.clientY);
+        const imgContainer = document.querySelector('.imgContainer');
+        const bounds = imgContainer.getBoundingClientRect();
 
-          const imgContainer = document.querySelector('.imgContainer');
-          const bounds = imgContainer.getBoundingClientRect();
+        const relativeX = ((event.clientX - bounds.left) / bounds.width) * 100;
+        const relativeY = ((event.clientY - bounds.top) / bounds.height) * 100;
 
-          if (
+        setClientX(relativeX);
+        setClientY(relativeY);
+
+        setDropdownX(event.clientX);
+        setDropdownY(event.clientY);
+
+        if (
             event.clientX >= bounds.left &&
             event.clientX <= bounds.right &&
             event.clientY >= bounds.top &&
@@ -35,7 +43,7 @@ function Game() {
             setShowDD(false);
         }
         setResult(null);
-        console.log(event.clientX, event.clientY);
+        console.log(relativeX, relativeY);
     }
 
     const addTimeToDB = async (playerName, time) => {
@@ -85,19 +93,19 @@ function Game() {
     }, [])
 
     useEffect(() => {
-        if (foundCharacters.length === 4 && !isOver) { // Check if all characters are found and game isn't over
-            setIsOver(true); // Set isOver to true
-            clearInterval(intervalId); // Clear the interval
-            const playerName = prompt(`You found both characters! Time: ${timePassed} seconds. What's your name?`); // Prompt the user
-            addTimeToDB(playerName, timePassed); // Add time to database
-            navigate('/high-scores'); // Navigate to high scores page
+        if (foundCharacters.length === 4 && !isOver) { 
+            setIsOver(true); 
+            clearInterval(intervalId); 
+            const playerName = prompt(`You found all the characters! Time: ${timePassed} seconds. What's your name?`); 
+            addTimeToDB(playerName, timePassed); 
+            navigate('/high-scores');
         }
     }, [foundCharacters, isOver, timePassed, intervalId, navigate]);
 
     const dropdownStyle = {
         position: 'absolute',
-        left: clientX,
-        top: clientY,
+        left: dropdownX,
+        top: dropdownY,
         display: 'flex',
         flexDirection: 'column'
     };
@@ -112,7 +120,7 @@ function Game() {
                     <img src={map1} alt="wenda" />
                 </div>
                 {showDD && (
-                    <div style={dropdownStyle}>
+                    <div style={dropdownStyle} className='dropdownStyle'>
                         {!foundCharacters.includes('waldo') && (
                             <button onClick={() => handleGuess('waldo')}>Waldo</button>
                         )}
@@ -127,10 +135,6 @@ function Game() {
                         )}
                     
                     </div>
-                
-                )}
-                {result && (
-                    <h1>{result.message}</h1>
                 )}
             </div>
         </>

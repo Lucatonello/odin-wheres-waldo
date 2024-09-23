@@ -52,7 +52,7 @@ function Navbar({ foundCharacters }) {
                 </div>
             </div>
             <div className="navbar-right">
-                <Link className="return-button" to="/home">Home</Link>
+                <Link className="return-button" to="/">Home</Link>
                 <Link className="return-button" to="/high-scores">High scores</Link>
             </div>
         </nav>

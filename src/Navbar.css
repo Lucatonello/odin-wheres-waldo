@@ -4,7 +4,6 @@
     align-items: center;
     padding: 10px 20px;
     background-color: #ffff;
-    border-bottom: 2px solid #ccc;
   }
   
   .navbar-left {
@@ -38,7 +37,7 @@
   }
   
   .return-button {
-    background-color: #ff5733;
+    background-color: #ff0000af;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -53,4 +52,12 @@
   .return-button:hover {
     background-color: #c43e22;
   }
-  
+  @media (max-width: 1400px) {
+    .navbar-right {
+      position: fixed; 
+      top: 7; 
+      right: 0; 
+      margin-right: 20px;
+      z-index: 10;
+    }
+  }

@@ -15,7 +15,7 @@ h1 {
     color: white;
     padding: 10px 15px;
     margin-top: 27px;
-    margin-left: 0px;
+    margin-left: 10px;
     text-decoration: none;
     border-radius: 5px;
     font-size: 1rem;
@@ -36,15 +36,13 @@ h2 {
 }
 
 .map-cards {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); /* Adjusts column count based on available width */
+    gap: 20px; /* Space between the grid items */
 }
 
 .map-card {
     position: relative;
-    width: 400px;
     height: 250px;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
@@ -103,4 +101,25 @@ h2 {
 
 .map-card:hover {
     transform: translateY(-5px);
+}
+
+.commingUp {
+    opacity: 0.4;
+}
+@media (max-width: 768px) {
+    .high-scores-button {
+       width: 50px;
+       height: 30px;
+       padding: 9px 5px;
+       top: 0px
+    }
+    h1 {
+        font-size: 2rem;
+        margin: 0px 25px 18px 0px;
+    }
+    hr {
+        width: 100%;
+        margin: 0 auto;
+        margin-bottom: 20px;
+    }
 }
